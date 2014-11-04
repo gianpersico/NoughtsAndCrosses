@@ -88,32 +88,6 @@ namespace NoughtsAndCrosses.Domain
                 }
             }
 
-            var playerInTopLeftSpace = PlayerIn(1, 1);
-            if (playerInTopLeftSpace != null)
-            {
-                if (playerInTopLeftSpace == PlayerIn(1, 2) && playerInTopLeftSpace == PlayerIn(1, 3))
-                {
-                    return playerInTopLeftSpace;
-                }
-                if (playerInTopLeftSpace == PlayerIn(2, 1) && playerInTopLeftSpace == PlayerIn(3, 1))
-                {
-                    return playerInTopLeftSpace;
-                }
-            }
-
-            var playerInBottomRightSpace = PlayerIn(3, 3);
-            if (playerInBottomRightSpace != null)
-            {
-                if (playerInBottomRightSpace == PlayerIn(2, 3) && playerInBottomRightSpace == PlayerIn(1, 3))
-                {
-                    return playerInBottomRightSpace;
-                }
-                if (playerInBottomRightSpace == PlayerIn(3, 2) && playerInBottomRightSpace == PlayerIn(3, 1))
-                {
-                    return playerInBottomRightSpace;
-                }
-            }
-
             return null;
         }
 
