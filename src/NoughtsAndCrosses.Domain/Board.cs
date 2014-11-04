@@ -38,12 +38,12 @@ namespace NoughtsAndCrosses.Domain
             };
         }
 
-        public bool Occupy(Player player, BoardSpace boardReference)
+        public bool Occupy(Player player, BoardSpace boardSpace)
         {
-            var isOccupied = Spaces[boardReference] != null;
+            var isOccupied = Spaces[boardSpace] != null;
             if (isOccupied) return false;
 
-            Spaces[boardReference] = player;
+            Spaces[boardSpace] = player;
             FreeSpaces--;
             CheckForWinner();
             return true;
@@ -66,52 +66,51 @@ namespace NoughtsAndCrosses.Domain
 
         private Player WinnerThroughMiddle()
         {
-            var centreRef = new BoardSpace(2, 2);
-            var playerInCentre = PlayerAtReference(centreRef);
+            var playerInCentre = PlayerIn(2, 2);
 
             if (playerInCentre != null)
             {
-                if (playerInCentre == PlayerAtReference(1, 1) && playerInCentre == PlayerAtReference(3, 3))
+                if (playerInCentre == PlayerIn(1, 1) && playerInCentre == PlayerIn(3, 3))
                 {
                     return playerInCentre;
                 }
-                if (playerInCentre == PlayerAtReference(3, 1) && playerInCentre == PlayerAtReference(1, 3))
+                if (playerInCentre == PlayerIn(3, 1) && playerInCentre == PlayerIn(1, 3))
                 {
                     return playerInCentre;
                 }
-                if (playerInCentre == PlayerAtReference(2, 1) && playerInCentre == PlayerAtReference(2, 3))
+                if (playerInCentre == PlayerIn(2, 1) && playerInCentre == PlayerIn(2, 3))
                 {
                     return playerInCentre;
                 }
-                if (playerInCentre == PlayerAtReference(1, 2) && playerInCentre == PlayerAtReference(3, 2))
+                if (playerInCentre == PlayerIn(1, 2) && playerInCentre == PlayerIn(3, 2))
                 {
                     return playerInCentre;
                 }
             }
 
-            var playerAtTopLeft = PlayerAtReference(1, 1);
-            if (playerAtTopLeft != null)
+            var playerInTopLeftSpace = PlayerIn(1, 1);
+            if (playerInTopLeftSpace != null)
             {
-                if (playerAtTopLeft == PlayerAtReference(1, 2) && playerAtTopLeft == PlayerAtReference(1, 3))
+                if (playerInTopLeftSpace == PlayerIn(1, 2) && playerInTopLeftSpace == PlayerIn(1, 3))
                 {
-                    return playerAtTopLeft;
+                    return playerInTopLeftSpace;
                 }
-                if (playerAtTopLeft == PlayerAtReference(2, 1) && playerAtTopLeft == PlayerAtReference(3, 1))
+                if (playerInTopLeftSpace == PlayerIn(2, 1) && playerInTopLeftSpace == PlayerIn(3, 1))
                 {
-                    return playerAtTopLeft;
+                    return playerInTopLeftSpace;
                 }
             }
 
-            var playerAtBottomRight = PlayerAtReference(3, 3);
-            if (playerAtBottomRight != null)
+            var playerInBottomRightSpace = PlayerIn(3, 3);
+            if (playerInBottomRightSpace != null)
             {
-                if (playerAtBottomRight == PlayerAtReference(2, 3) && playerAtBottomRight == PlayerAtReference(1, 3))
+                if (playerInBottomRightSpace == PlayerIn(2, 3) && playerInBottomRightSpace == PlayerIn(1, 3))
                 {
-                    return playerAtBottomRight;
+                    return playerInBottomRightSpace;
                 }
-                if (playerAtBottomRight == PlayerAtReference(3, 2) && playerAtBottomRight == PlayerAtReference(3, 1))
+                if (playerInBottomRightSpace == PlayerIn(3, 2) && playerInBottomRightSpace == PlayerIn(3, 1))
                 {
-                    return playerAtBottomRight;
+                    return playerInBottomRightSpace;
                 }
             }
 
@@ -120,14 +119,14 @@ namespace NoughtsAndCrosses.Domain
 
         private Player WinnerThroughTopLeft()
         {
-            var playerAtTopLeft = PlayerAtReference(1, 1);
+            var playerAtTopLeft = PlayerIn(1, 1);
             if (playerAtTopLeft != null)
             {
-                if (playerAtTopLeft == PlayerAtReference(1, 2) && playerAtTopLeft == PlayerAtReference(1, 3))
+                if (playerAtTopLeft == PlayerIn(1, 2) && playerAtTopLeft == PlayerIn(1, 3))
                 {
                     return playerAtTopLeft;
                 }
-                if (playerAtTopLeft == PlayerAtReference(2, 1) && playerAtTopLeft == PlayerAtReference(3, 1))
+                if (playerAtTopLeft == PlayerIn(2, 1) && playerAtTopLeft == PlayerIn(3, 1))
                 {
                     return playerAtTopLeft;
                 }
@@ -138,14 +137,14 @@ namespace NoughtsAndCrosses.Domain
 
         private Player WinnerThroughBottomRight()
         {
-            var playerAtBottomRight = PlayerAtReference(3, 3);
+            var playerAtBottomRight = PlayerIn(3, 3);
             if (playerAtBottomRight != null)
             {
-                if (playerAtBottomRight == PlayerAtReference(2, 3) && playerAtBottomRight == PlayerAtReference(1, 3))
+                if (playerAtBottomRight == PlayerIn(2, 3) && playerAtBottomRight == PlayerIn(1, 3))
                 {
                     return playerAtBottomRight;
                 }
-                if (playerAtBottomRight == PlayerAtReference(3, 2) && playerAtBottomRight == PlayerAtReference(3, 1))
+                if (playerAtBottomRight == PlayerIn(3, 2) && playerAtBottomRight == PlayerIn(3, 1))
                 {
                     return playerAtBottomRight;
                 }
@@ -154,14 +153,9 @@ namespace NoughtsAndCrosses.Domain
             return null;
         }
 
-        private Player PlayerAtReference(int x, int y)
+        private Player PlayerIn(int x, int y)
         {
-            return PlayerAtReference(new BoardSpace(x, y));
-        }
-
-        private Player PlayerAtReference(BoardSpace boardRef)
-        {
-            return Spaces[boardRef];
+            return Spaces[new BoardSpace(x, y)];
         }
     }
 }

@@ -33,11 +33,11 @@ namespace NoughtsAndCrosses.Domain
             };
         }
 
-        public void TakeTurn(Player player, BoardSpace boardReference)
+        public void TakeTurn(Player player, BoardSpace boardSpace)
         {
             if (LastPlayer != null && LastPlayer == player) throw new SimultaneousTurnsException(player);
 
-            if (Board.Occupy(player, boardReference)) LastPlayer = player;
+            if (Board.Occupy(player, boardSpace)) LastPlayer = player;
             else throw new SpaceAlreadyOccupiedException();
         }
 
