@@ -88,7 +88,7 @@ namespace NoughtsAndCrosses.Tests
         }
 
         [TestMethod]
-        public void TakeTurn_SetsTheWinner()
+        public void TakeTurn_SetsTheWinner_FromTopLeftToBottomRight()
         {
             var game = Game.StartNew();
             var player1 = game.Players.ToList()[0];
@@ -97,6 +97,108 @@ namespace NoughtsAndCrosses.Tests
             game.TakeTurn(player2, new BoardReference(2, 1));
             game.TakeTurn(player1, new BoardReference(2, 2));
             game.TakeTurn(player2, new BoardReference(3, 2));
+            game.TakeTurn(player1, new BoardReference(3, 3));
+
+            Assert.IsNotNull(game.Winner);
+            Assert.AreEqual(1, game.Winner.Number);
+            Assert.IsFalse(game.IsInProgress());
+        }
+
+        [TestMethod]
+        public void TakeTurn_SetsTheWinner_FromMiddleLeftToMiddleRight()
+        {
+            var game = Game.StartNew();
+            var player1 = game.Players.ToList()[0];
+            var player2 = game.Players.ToList()[1];
+            game.TakeTurn(player1, new BoardReference(2, 1));
+            game.TakeTurn(player2, new BoardReference(1, 1));
+            game.TakeTurn(player1, new BoardReference(2, 2));
+            game.TakeTurn(player2, new BoardReference(1, 2));
+            game.TakeTurn(player1, new BoardReference(2, 3));
+
+            Assert.IsNotNull(game.Winner);
+            Assert.AreEqual(1, game.Winner.Number);
+            Assert.IsFalse(game.IsInProgress());
+        }
+
+        [TestMethod]
+        public void TakeTurn_SetsTheWinner_FromTopMiddleToBottomMiddle()
+        {
+            var game = Game.StartNew();
+            var player1 = game.Players.ToList()[0];
+            var player2 = game.Players.ToList()[1];
+            game.TakeTurn(player1, new BoardReference(1, 2));
+            game.TakeTurn(player2, new BoardReference(1, 3));
+            game.TakeTurn(player1, new BoardReference(2, 2));
+            game.TakeTurn(player2, new BoardReference(2, 3));
+            game.TakeTurn(player1, new BoardReference(3, 2));
+
+            Assert.IsNotNull(game.Winner);
+            Assert.AreEqual(1, game.Winner.Number);
+            Assert.IsFalse(game.IsInProgress());
+        }
+
+        [TestMethod]
+        public void TakeTurn_SetsTheWinner_FromTopLeftToTopRight()
+        {
+            var game = Game.StartNew();
+            var player1 = game.Players.ToList()[0];
+            var player2 = game.Players.ToList()[1];
+            game.TakeTurn(player1, new BoardReference(1, 1));
+            game.TakeTurn(player2, new BoardReference(2, 1));
+            game.TakeTurn(player1, new BoardReference(1, 2));
+            game.TakeTurn(player2, new BoardReference(3, 2));
+            game.TakeTurn(player1, new BoardReference(1, 3));
+
+            Assert.IsNotNull(game.Winner);
+            Assert.AreEqual(1, game.Winner.Number);
+            Assert.IsFalse(game.IsInProgress());
+        }
+
+        [TestMethod]
+        public void TakeTurn_SetsTheWinner_FromTopLeftToBottomLeft()
+        {
+            var game = Game.StartNew();
+            var player1 = game.Players.ToList()[0];
+            var player2 = game.Players.ToList()[1];
+            game.TakeTurn(player1, new BoardReference(1, 1));
+            game.TakeTurn(player2, new BoardReference(1, 3));
+            game.TakeTurn(player1, new BoardReference(2, 1));
+            game.TakeTurn(player2, new BoardReference(2, 3));
+            game.TakeTurn(player1, new BoardReference(3, 1));
+
+            Assert.IsNotNull(game.Winner);
+            Assert.AreEqual(1, game.Winner.Number);
+            Assert.IsFalse(game.IsInProgress());
+        }
+
+        [TestMethod]
+        public void TakeTurn_SetsTheWinner_FromBottomLeftToBottomRight()
+        {
+            var game = Game.StartNew();
+            var player1 = game.Players.ToList()[0];
+            var player2 = game.Players.ToList()[1];
+            game.TakeTurn(player1, new BoardReference(3, 1));
+            game.TakeTurn(player2, new BoardReference(1, 1));
+            game.TakeTurn(player1, new BoardReference(3, 2));
+            game.TakeTurn(player2, new BoardReference(2, 1));
+            game.TakeTurn(player1, new BoardReference(3, 3));
+
+            Assert.IsNotNull(game.Winner);
+            Assert.AreEqual(1, game.Winner.Number);
+            Assert.IsFalse(game.IsInProgress());
+        }
+
+        [TestMethod]
+        public void TakeTurn_SetsTheWinner_FromTopLRightToBottomRight()
+        {
+            var game = Game.StartNew();
+            var player1 = game.Players.ToList()[0];
+            var player2 = game.Players.ToList()[1];
+            game.TakeTurn(player1, new BoardReference(1, 3));
+            game.TakeTurn(player2, new BoardReference(1, 1));
+            game.TakeTurn(player1, new BoardReference(2, 3));
+            game.TakeTurn(player2, new BoardReference(1, 2));
             game.TakeTurn(player1, new BoardReference(3, 3));
 
             Assert.IsNotNull(game.Winner);

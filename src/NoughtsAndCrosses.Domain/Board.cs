@@ -61,22 +61,63 @@ namespace NoughtsAndCrosses.Domain
             var centreRef = new BoardReference(2, 2);
             var playerInCentre = PlayerAtReference(centreRef);
 
-            if (playerInCentre == null) return null;
-            if (playerInCentre == PlayerAtReference(new BoardReference(1, 1)) && playerInCentre == PlayerAtReference(new BoardReference(3, 3)))
+            if (playerInCentre != null)
             {
-                return playerInCentre;
+                if (playerInCentre == PlayerAtReference(1, 1) && playerInCentre == PlayerAtReference(3, 3))
+                {
+                    return playerInCentre;
+                }
+                if (playerInCentre == PlayerAtReference(3, 1) && playerInCentre == PlayerAtReference(1, 3))
+                {
+                    return playerInCentre;
+                }
+                if (playerInCentre == PlayerAtReference(2, 1) && playerInCentre == PlayerAtReference(2, 3))
+                {
+                    return playerInCentre;
+                }
+                if (playerInCentre == PlayerAtReference(1, 2) && playerInCentre == PlayerAtReference(3, 2))
+                {
+                    return playerInCentre;
+                }
             }
-            if (playerInCentre == PlayerAtReference(new BoardReference(3, 1)) && playerInCentre == PlayerAtReference(new BoardReference(1, 3)))
+
+            var playerAtTopLeft = PlayerAtReference(1, 1);
+            if (playerAtTopLeft != null)
             {
-                return playerInCentre;
+                if (playerAtTopLeft == PlayerAtReference(1, 2) && playerAtTopLeft == PlayerAtReference(1, 3))
+                {
+                    return playerAtTopLeft;
+                }
+                if (playerAtTopLeft == PlayerAtReference(2, 1) && playerAtTopLeft == PlayerAtReference(3, 1))
+                {
+                    return playerAtTopLeft;
+                }
+            }
+
+            var playerAtBottomRight = PlayerAtReference(3, 3);
+            if (playerAtBottomRight != null)
+            {
+                if (playerAtBottomRight == PlayerAtReference(2, 3) && playerAtBottomRight == PlayerAtReference(1, 3))
+                {
+                    return playerAtBottomRight;
+                }
+                if (playerAtBottomRight == PlayerAtReference(3, 2) && playerAtBottomRight == PlayerAtReference(3, 1))
+                {
+                    return playerAtBottomRight;
+                }
             }
 
             return null;
+        }
+
+        private Player PlayerAtReference(int x, int y)
+        {
+            return PlayerAtReference(new BoardReference(x, y));
         }
 
         private Player PlayerAtReference(BoardReference boardRef)
         {
             return Spaces[boardRef];
         }
-    }    
+    }
 }
