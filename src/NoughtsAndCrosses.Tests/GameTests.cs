@@ -47,7 +47,7 @@ namespace NoughtsAndCrosses.Tests
         {
             var game = Game.StartNew();
             var player1 = game.Players.ToList()[0];
-            game.TakeTurn(player1, new BoardReference(1, 1));
+            TakeTurnFor(game, player1, 1, 1);
             Assert.AreEqual(8, game.Board.FreeSpaces);
         }
 
@@ -57,8 +57,8 @@ namespace NoughtsAndCrosses.Tests
             var game = Game.StartNew();
             var player1 = game.Players.ToList()[0];
             var player2 = game.Players.ToList()[1];
-            game.TakeTurn(player1, new BoardReference(1, 1));
-            game.TakeTurn(player2, new BoardReference(2, 2));
+            TakeTurnFor(game, player1, 1, 1);
+            TakeTurnFor(game, player2, 2, 2);
             Assert.IsNotNull(game.LastPlayer);
             Assert.AreEqual(2, game.LastPlayer.Number);
             Assert.AreEqual(7, game.Board.FreeSpaces);
@@ -70,8 +70,8 @@ namespace NoughtsAndCrosses.Tests
         {
             var game = Game.StartNew();
             var player1 = game.Players.ToList()[0];
-            game.TakeTurn(player1, new BoardReference(1, 1));
-            game.TakeTurn(player1, new BoardReference(2, 2));
+            TakeTurnFor(game, player1, 1, 1);
+            TakeTurnFor(game, player1, 2, 2);
             Assert.AreEqual(8, game.Board.FreeSpaces);
         }
 
@@ -82,8 +82,8 @@ namespace NoughtsAndCrosses.Tests
             var game = Game.StartNew();
             var player1 = game.Players.ToList()[0];
             var player2 = game.Players.ToList()[1];
-            game.TakeTurn(player1, new BoardReference(3, 2));
-            game.TakeTurn(player2, new BoardReference(3, 2));
+            TakeTurnFor(game, player1, 3, 2);
+            TakeTurnFor(game, player2, 3, 2);
             Assert.AreEqual(8, game.Board.FreeSpaces);
         }
 
@@ -93,11 +93,11 @@ namespace NoughtsAndCrosses.Tests
             var game = Game.StartNew();
             var player1 = game.Players.ToList()[0];
             var player2 = game.Players.ToList()[1];
-            game.TakeTurn(player1, new BoardReference(1, 1));
-            game.TakeTurn(player2, new BoardReference(2, 1));
-            game.TakeTurn(player1, new BoardReference(2, 2));
-            game.TakeTurn(player2, new BoardReference(3, 2));
-            game.TakeTurn(player1, new BoardReference(3, 3));
+            TakeTurnFor(game, player1, 1, 1);
+            TakeTurnFor(game, player2, 2, 1);
+            TakeTurnFor(game, player1, 2, 2);
+            TakeTurnFor(game, player2, 3, 2);
+            TakeTurnFor(game, player1, 3, 3);
 
             Assert.IsNotNull(game.Winner);
             Assert.AreEqual(1, game.Winner.Number);
@@ -110,11 +110,11 @@ namespace NoughtsAndCrosses.Tests
             var game = Game.StartNew();
             var player1 = game.Players.ToList()[0];
             var player2 = game.Players.ToList()[1];
-            game.TakeTurn(player1, new BoardReference(2, 1));
-            game.TakeTurn(player2, new BoardReference(1, 1));
-            game.TakeTurn(player1, new BoardReference(2, 2));
-            game.TakeTurn(player2, new BoardReference(1, 2));
-            game.TakeTurn(player1, new BoardReference(2, 3));
+            TakeTurnFor(game, player1,2, 1);
+            TakeTurnFor(game, player2,1, 1);
+            TakeTurnFor(game, player1,2, 2);
+            TakeTurnFor(game, player2,1, 2);
+            TakeTurnFor(game, player1,2, 3);
 
             Assert.IsNotNull(game.Winner);
             Assert.AreEqual(1, game.Winner.Number);
@@ -127,11 +127,11 @@ namespace NoughtsAndCrosses.Tests
             var game = Game.StartNew();
             var player1 = game.Players.ToList()[0];
             var player2 = game.Players.ToList()[1];
-            game.TakeTurn(player1, new BoardReference(1, 2));
-            game.TakeTurn(player2, new BoardReference(1, 3));
-            game.TakeTurn(player1, new BoardReference(2, 2));
-            game.TakeTurn(player2, new BoardReference(2, 3));
-            game.TakeTurn(player1, new BoardReference(3, 2));
+            TakeTurnFor(game, player1, 1, 2);
+            TakeTurnFor(game, player2, 1, 3);
+            TakeTurnFor(game, player1, 2, 2);
+            TakeTurnFor(game, player2, 2, 3);
+            TakeTurnFor(game, player1, 3, 2);
 
             Assert.IsNotNull(game.Winner);
             Assert.AreEqual(1, game.Winner.Number);
@@ -144,11 +144,11 @@ namespace NoughtsAndCrosses.Tests
             var game = Game.StartNew();
             var player1 = game.Players.ToList()[0];
             var player2 = game.Players.ToList()[1];
-            game.TakeTurn(player1, new BoardReference(1, 1));
-            game.TakeTurn(player2, new BoardReference(2, 1));
-            game.TakeTurn(player1, new BoardReference(1, 2));
-            game.TakeTurn(player2, new BoardReference(3, 2));
-            game.TakeTurn(player1, new BoardReference(1, 3));
+            TakeTurnFor(game, player1, 1, 1);
+            TakeTurnFor(game, player2, 2, 1);
+            TakeTurnFor(game, player1, 1, 2);
+            TakeTurnFor(game, player2, 3, 2);
+            TakeTurnFor(game, player1, 1, 3);
 
             Assert.IsNotNull(game.Winner);
             Assert.AreEqual(1, game.Winner.Number);
@@ -161,11 +161,11 @@ namespace NoughtsAndCrosses.Tests
             var game = Game.StartNew();
             var player1 = game.Players.ToList()[0];
             var player2 = game.Players.ToList()[1];
-            game.TakeTurn(player1, new BoardReference(1, 1));
-            game.TakeTurn(player2, new BoardReference(1, 3));
-            game.TakeTurn(player1, new BoardReference(2, 1));
-            game.TakeTurn(player2, new BoardReference(2, 3));
-            game.TakeTurn(player1, new BoardReference(3, 1));
+            TakeTurnFor(game, player1, 1, 1);
+            TakeTurnFor(game, player2, 1, 3);
+            TakeTurnFor(game, player1, 2, 1);
+            TakeTurnFor(game, player2, 2, 3);
+            TakeTurnFor(game, player1, 3, 1);
 
             Assert.IsNotNull(game.Winner);
             Assert.AreEqual(1, game.Winner.Number);
@@ -178,11 +178,11 @@ namespace NoughtsAndCrosses.Tests
             var game = Game.StartNew();
             var player1 = game.Players.ToList()[0];
             var player2 = game.Players.ToList()[1];
-            game.TakeTurn(player1, new BoardReference(3, 1));
-            game.TakeTurn(player2, new BoardReference(1, 1));
-            game.TakeTurn(player1, new BoardReference(3, 2));
-            game.TakeTurn(player2, new BoardReference(2, 1));
-            game.TakeTurn(player1, new BoardReference(3, 3));
+            TakeTurnFor(game, player1, 3, 1);
+            TakeTurnFor(game, player2, 1, 1);
+            TakeTurnFor(game, player1, 3, 2);
+            TakeTurnFor(game, player2, 2, 1);
+            TakeTurnFor(game, player1, 3, 3);
 
             Assert.IsNotNull(game.Winner);
             Assert.AreEqual(1, game.Winner.Number);
@@ -195,15 +195,20 @@ namespace NoughtsAndCrosses.Tests
             var game = Game.StartNew();
             var player1 = game.Players.ToList()[0];
             var player2 = game.Players.ToList()[1];
-            game.TakeTurn(player1, new BoardReference(1, 3));
-            game.TakeTurn(player2, new BoardReference(1, 1));
-            game.TakeTurn(player1, new BoardReference(2, 3));
-            game.TakeTurn(player2, new BoardReference(1, 2));
-            game.TakeTurn(player1, new BoardReference(3, 3));
+            TakeTurnFor(game, player1, 1, 3);
+            TakeTurnFor(game, player2, 1, 1);
+            TakeTurnFor(game, player1, 2, 3);
+            TakeTurnFor(game, player2, 1, 2);
+            TakeTurnFor(game, player1, 3, 3);
 
             Assert.IsNotNull(game.Winner);
             Assert.AreEqual(1, game.Winner.Number);
             Assert.IsFalse(game.IsInProgress());
+        }
+
+        private void TakeTurnFor(Game game, Player player, int x, int y)
+        {
+            game.TakeTurn(player, new BoardSpace(x, y));
         }
     }
 }
