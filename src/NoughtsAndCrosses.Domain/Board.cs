@@ -54,6 +54,14 @@ namespace NoughtsAndCrosses.Domain
             if (FreeSpaces > 4) return;
 
             Winner = WinnerThroughMiddle();
+            if (Winner == null)
+            {
+                Winner = WinnerThroughTopLeft();
+                if (Winner == null)
+                {
+                    Winner = WinnerThroughBottomRight();
+                }
+            }
         }
 
         private Player WinnerThroughMiddle()
@@ -94,6 +102,42 @@ namespace NoughtsAndCrosses.Domain
                 }
             }
 
+            var playerAtBottomRight = PlayerAtReference(3, 3);
+            if (playerAtBottomRight != null)
+            {
+                if (playerAtBottomRight == PlayerAtReference(2, 3) && playerAtBottomRight == PlayerAtReference(1, 3))
+                {
+                    return playerAtBottomRight;
+                }
+                if (playerAtBottomRight == PlayerAtReference(3, 2) && playerAtBottomRight == PlayerAtReference(3, 1))
+                {
+                    return playerAtBottomRight;
+                }
+            }
+
+            return null;
+        }
+
+        private Player WinnerThroughTopLeft()
+        {
+            var playerAtTopLeft = PlayerAtReference(1, 1);
+            if (playerAtTopLeft != null)
+            {
+                if (playerAtTopLeft == PlayerAtReference(1, 2) && playerAtTopLeft == PlayerAtReference(1, 3))
+                {
+                    return playerAtTopLeft;
+                }
+                if (playerAtTopLeft == PlayerAtReference(2, 1) && playerAtTopLeft == PlayerAtReference(3, 1))
+                {
+                    return playerAtTopLeft;
+                }
+            }
+
+            return null;
+        }
+
+        private Player WinnerThroughBottomRight()
+        {
             var playerAtBottomRight = PlayerAtReference(3, 3);
             if (playerAtBottomRight != null)
             {
