@@ -36,6 +36,7 @@ namespace NoughtsAndCrosses.Domain
         public void TakeTurn(Player player, BoardSpace boardSpace)
         {
             if (LastPlayer != null && LastPlayer == player) throw new SimultaneousTurnsException(player);
+            if (Board.IsStalemate) throw new NoMoreTurnsAllowedException();
 
             if (Board.Occupy(player, boardSpace)) LastPlayer = player;
             else throw new SpaceAlreadyOccupiedException();

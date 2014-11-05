@@ -110,11 +110,11 @@ namespace NoughtsAndCrosses.Tests
             var game = Game.StartNew();
             var player1 = game.Players.ToList()[0];
             var player2 = game.Players.ToList()[1];
-            TakeTurnFor(game, player1,2, 1);
-            TakeTurnFor(game, player2,1, 1);
-            TakeTurnFor(game, player1,2, 2);
-            TakeTurnFor(game, player2,1, 2);
-            TakeTurnFor(game, player1,2, 3);
+            TakeTurnFor(game, player1, 2, 1);
+            TakeTurnFor(game, player2, 1, 1);
+            TakeTurnFor(game, player1, 2, 2);
+            TakeTurnFor(game, player2, 1, 2);
+            TakeTurnFor(game, player1, 2, 3);
 
             Assert.IsNotNull(game.Winner);
             Assert.AreEqual(1, game.Winner.Number);
@@ -204,6 +204,28 @@ namespace NoughtsAndCrosses.Tests
             Assert.IsNotNull(game.Winner);
             Assert.AreEqual(1, game.Winner.Number);
             Assert.IsFalse(game.IsInProgress());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NoMoreTurnsAllowedException))]
+        public void TakeTurn_DoesNotAllowAnotherTurn_WhenTheGameFinishesAsAStalemate()
+        {
+            var game = Game.StartNew();
+            var player1 = game.Players.ToList()[0];
+            var player2 = game.Players.ToList()[1];
+            TakeTurnFor(game, player1, 1, 1);
+            TakeTurnFor(game, player2, 1, 2);
+            TakeTurnFor(game, player1, 1, 3);
+            TakeTurnFor(game, player2, 2, 1);
+            TakeTurnFor(game, player1, 2, 3);
+            TakeTurnFor(game, player2, 2, 2);
+            TakeTurnFor(game, player1, 3, 1);
+            TakeTurnFor(game, player2, 3, 3);
+            TakeTurnFor(game, player1, 3, 2);
+
+            TakeTurnFor(game, player2, 3, 2);
+
+            Assert.IsNull(game.Winner);
         }
 
         private void TakeTurnFor(Game game, Player player, int x, int y)

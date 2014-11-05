@@ -16,4 +16,6 @@ namespace NoughtsAndCrosses.Domain
     }
 
     public class SpaceAlreadyOccupiedException : Exception { }
+
+    public class NoMoreTurnsAllowedException : Exception { }
 }
