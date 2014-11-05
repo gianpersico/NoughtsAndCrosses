@@ -71,24 +71,6 @@ namespace NoughtsAndCrosses.Domain
             }
         }
 
-        private Player WinnerThroughBottomRight()
-        {
-            var playerAtBottomRight = PlayerIn(3, 3);
-            if (playerAtBottomRight != null)
-            {
-                if (playerAtBottomRight == PlayerIn(2, 3) && playerAtBottomRight == PlayerIn(1, 3))
-                {
-                    return playerAtBottomRight;
-                }
-                if (playerAtBottomRight == PlayerIn(3, 2) && playerAtBottomRight == PlayerIn(3, 1))
-                {
-                    return playerAtBottomRight;
-                }
-            }
-
-            return null;
-        }
-
         private Player PlayerIn(int x, int y)
         {
             return Spaces[new BoardSpace(x, y)];
