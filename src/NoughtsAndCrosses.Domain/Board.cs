@@ -13,6 +13,7 @@ namespace NoughtsAndCrosses.Domain
         public Dictionary<BoardSpace, Player> Spaces { get; private set; }
         public Player Winner { get; private set; }
         public bool IsStalemate { get { return FreeSpaces == 0; } }
+        public List<WinnerDetectionStrategy> WinnerDetectionStrategies { get; private set; }
 
         private Board() { }
 
@@ -34,7 +35,13 @@ namespace NoughtsAndCrosses.Domain
                 TotalSpaces = count,
                 FreeSpaces = count,
                 Spaces = spaces,
-                Winner = null
+                Winner = null,
+                WinnerDetectionStrategies = new List<WinnerDetectionStrategy>
+                {
+                    new WinnerThroughBottomRightSpace(),
+                    new WinnerThroughCentreSpace(),
+                    new WinnerThroughTopLeftSpace()
+                }
             };
         }
 
@@ -53,60 +60,15 @@ namespace NoughtsAndCrosses.Domain
         {
             if (FreeSpaces > 4) return;
 
-            Winner = WinnerThroughMiddle();
-            if (Winner == null)
+            foreach (var strategy in WinnerDetectionStrategies)
             {
-                Winner = WinnerThroughTopLeft();
-                if (Winner == null)
+                var strategyWinner = strategy.CheckForWinnerOnBoard(this);
+                if (strategyWinner != null)
                 {
-                    Winner = WinnerThroughBottomRight();
+                    Winner = strategyWinner;
+                    break;
                 }
             }
-        }
-
-        private Player WinnerThroughMiddle()
-        {
-            var playerInCentre = PlayerIn(2, 2);
-
-            if (playerInCentre != null)
-            {
-                if (playerInCentre == PlayerIn(1, 1) && playerInCentre == PlayerIn(3, 3))
-                {
-                    return playerInCentre;
-                }
-                if (playerInCentre == PlayerIn(3, 1) && playerInCentre == PlayerIn(1, 3))
-                {
-                    return playerInCentre;
-                }
-                if (playerInCentre == PlayerIn(2, 1) && playerInCentre == PlayerIn(2, 3))
-                {
-                    return playerInCentre;
-                }
-                if (playerInCentre == PlayerIn(1, 2) && playerInCentre == PlayerIn(3, 2))
-                {
-                    return playerInCentre;
-                }
-            }
-
-            return null;
-        }
-
-        private Player WinnerThroughTopLeft()
-        {
-            var playerAtTopLeft = PlayerIn(1, 1);
-            if (playerAtTopLeft != null)
-            {
-                if (playerAtTopLeft == PlayerIn(1, 2) && playerAtTopLeft == PlayerIn(1, 3))
-                {
-                    return playerAtTopLeft;
-                }
-                if (playerAtTopLeft == PlayerIn(2, 1) && playerAtTopLeft == PlayerIn(3, 1))
-                {
-                    return playerAtTopLeft;
-                }
-            }
-
-            return null;
         }
 
         private Player WinnerThroughBottomRight()

@@ -32,7 +32,7 @@ namespace NoughtsAndCrosses.Domain
 
         public bool Equals(Player p)
         {
-                     if (Object.ReferenceEquals(p, null))
+            if (Object.ReferenceEquals(p, null))
             {
                 return false;
             }
