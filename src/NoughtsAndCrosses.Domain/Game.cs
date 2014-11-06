@@ -17,14 +17,19 @@ namespace NoughtsAndCrosses.Domain
 
         public static Game StartNew()
         {
+            return CreateNew(CreateDefaultPlayers());
+        }
+
+        public static Game CreateNew(ICollection<Player> players)
+        {
             var game = new Game();
             game.Board = Board.InitialiseForNewGame();
-            game.Players = CreatePlayers();
+            game.Players = players;
             game.LastPlayer = null;
             return game;
         }
 
-        private static ICollection<Player> CreatePlayers()
+        private static ICollection<Player> CreateDefaultPlayers()
         {
             return new List<Player>
             {
