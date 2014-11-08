@@ -10,6 +10,7 @@ namespace NoughtsAndCrosses.Domain
     {
         private Game() { }
 
+        public Guid Id { get; private set; }
         public Board Board { get; private set; }
         public ICollection<Player> Players { get; private set; }
         public Player LastPlayer { get; private set; }
@@ -17,12 +18,13 @@ namespace NoughtsAndCrosses.Domain
 
         public static Game StartNew()
         {
-            return CreateNew(CreateDefaultPlayers());
+            return StartNew(CreateDefaultPlayers());
         }
 
-        public static Game CreateNew(ICollection<Player> players)
+        public static Game StartNew(ICollection<Player> players)
         {
             var game = new Game();
+            game.Id = Guid.NewGuid();
             game.Board = Board.InitialiseForNewGame();
             game.Players = players;
             game.LastPlayer = null;
